@@ -63,6 +63,7 @@ if ! grep -Fq "$VENV_DIR/bin/activate" "$BASHRC" 2>/dev/null; then
 else
   echo "Line already exists, not added."
 fi
+
 echo
 echo "==============================================================="
 echo "Installation finished."
@@ -79,4 +80,15 @@ echo "  $VENV_DIR/bin/activate from ~/.bashrc"
 echo
 echo "LinuxDays 2025 - Ansible Workshop"
 echo "==============================================================="
-source $VENV_DIR/bin/activate
+# Ensure virtualenv stays active in current shell if script was sourced
+if [ "${BASH_SOURCE[0]:-}" != "$0" ]; then
+  # shell is sourcing this script
+  # Re-source to be explicit
+  # shellcheck disable=SC1090
+  source "$VENV_DIR/bin/activate"
+  echo "Virtualenv is now active in this shell."
+else
+  echo
+  echo "To activate the virtualenv in your current shell now run:"
+  echo "  source \"$0\""
+fi
