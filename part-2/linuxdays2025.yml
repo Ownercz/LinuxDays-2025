@@ -1,0 +1,19 @@
+---
+
+- hosts: all
+  handlers:
+    - name: Echo change to log
+      ansible.builtin.debug:
+        msg: "linuxdays2025 file has been changed"
+      listen: linuxdays2025-handler
+  tasks:
+    # Task obsahuje tři chyby, které je potřeba opravit.
+    - name: Copy LD2025 file to /opt directory
+      ansible.builtin.copy:
+        src: LD2025
+        dst: /op/LD2025
+        user: root
+        group: root
+        mode: '0644'
+      notify: linuxdays2025-handler
+      when: inventory_hostname != "eva"
