@@ -43,6 +43,8 @@ if ! python -m pip install "ansible==${ANSIBLE_VERSION}"; then
   echo "Warning: Installation of ansible==${ANSIBLE_VERSION} failed. Trying latest available version..."
   python -m pip install ansible
 fi
+echo "Installing Python 'requests' library"
+python -m pip install requests
 
 echo "[5/5] Checking versions"
 echo -n "Python: "; python --version
