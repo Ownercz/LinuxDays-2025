@@ -2,20 +2,25 @@
   hosts: localhost
   pre_tasks: # run docker-stop.sh script to clean up old containers
     - name: Run docker-stop.sh script to clean up old containers
-      command: ./docker-stop.sh
+      ansible.builtin.command: ./docker-stop.sh
       args:
         chdir: "{{ playbook_dir }}"
   roles:
     - role: workshop_docker
       workshop_docker_names: "{{ groups['all'] }}"
-      workshop_docker_image: "ownercz/docker-ubuntu2404-systemd"
+      workshop_docker_image: "registry.hub.docker.com/ownercz/linuxdays-ubuntu-systemd"
 - hosts: all
   gather_facts: False
   pre_tasks:
+    - name: Wait for container up via ansible_connection=docker
+      ansible.builtin.wait_for:
+        port: 22
+        delay: 5
+        timeout: 300
     - name: Install python for Ansible
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python3 python3-minimal)
+      ansible.builtin.raw: test -e /usr/bin/python || (apt -y update && apt install -y python3 python3-minimal)
     - name: Check ansible deps
-      apt:
+      ansible.builtin.apt:
         name: "{{ packages }}"
       vars:
         packages:
@@ -23,7 +28,7 @@
         - python3-apt
         - lsb-release
     - name: Gather facts
-      setup: # aka gather_facts
+      ansible.builtin.setup: # aka gather_facts
   tasks:
     - name: "Say hello to my new containers"
-      ping:
+      ansible.builtin.ping:

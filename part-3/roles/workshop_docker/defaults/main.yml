@@ -2,7 +2,7 @@
 workshop_docker_use_systemd: true
 
 # Docker image to use for the containers
-workshop_docker_image: "{% if workshop_docker_use_systemd %} ownercz/docker-ubuntu2404-systemd {% else %} ubuntu:24.04 {% endif %}"
+workshop_docker_image: "{% if workshop_docker_use_systemd %} registry.hub.docker.com/ownercz/linuxdays-ubuntu-systemd {% else %} ubuntu:24.04 {% endif %}"
 
 # Container names will be workshop1, workshop2, ...
 workshop_docker_count: 3
