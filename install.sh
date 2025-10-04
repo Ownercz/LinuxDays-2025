@@ -63,7 +63,6 @@ if ! grep -Fq "$VENV_DIR/bin/activate" "$BASHRC" 2>/dev/null; then
 else
   echo "Line already exists, not added."
 fi
-
 echo
 echo "==============================================================="
 echo "Installation finished."
@@ -72,6 +71,7 @@ if [ "$ADDED_TO_BASHRC" -eq 1 ]; then
 else
   echo "Automatic activation was already configured."
 fi
+source $VENV_DIR/bin/activate
 echo "Manual activation (if you need it in another shell):"
 echo "  source $VENV_DIR/bin/activate"
 echo
