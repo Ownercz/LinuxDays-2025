@@ -71,7 +71,6 @@ if [ "$ADDED_TO_BASHRC" -eq 1 ]; then
 else
   echo "Automatic activation was already configured."
 fi
-source $VENV_DIR/bin/activate
 echo "Manual activation (if you need it in another shell):"
 echo "  source $VENV_DIR/bin/activate"
 echo
@@ -80,3 +79,4 @@ echo "  $VENV_DIR/bin/activate from ~/.bashrc"
 echo
 echo "LinuxDays 2025 - Ansible Workshop"
 echo "==============================================================="
+source $VENV_DIR/bin/activate
